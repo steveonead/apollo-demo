@@ -100,7 +100,7 @@ const typeDefs = `#graphql
 
   type Query {
     allMovies: [Movie]!
-    movieDetail(id: ID!): MovieDetail~
+    movieDetail(id: ID!): MovieDetail!
     allGenres: [String]!
   }
 
