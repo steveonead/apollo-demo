@@ -3,22 +3,7 @@ import { Search, Calendar, Film, User, Filter, Plus } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { useGenres, useMovieDetail, useMovies } from "./queries/movie";
 import { ADD_MOVIE } from "./queries/mutations";
-
-// Types
-type Director = {
-  name: string;
-  age: number;
-  gender: string;
-};
-
-type Movie = {
-  id: string;
-  title: string;
-  director: Director;
-  releaseYear: number;
-  genre: string;
-  img: string;
-};
+import type { Movie, Director } from "./__generated__/graphql";
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
   const [imageError, setImageError] = useState(false);
@@ -153,13 +138,23 @@ const AddMovieForm = ({ genres, onMovieAdded }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addMovie({ variables: { title, releaseYear: parseInt(releaseYear), genre, directorName } });
+    addMovie({
+      variables: {
+        title,
+        releaseYear: parseInt(releaseYear),
+        genre,
+        directorName,
+      },
+    });
   };
 
   return (
     <div className="mb-8 rounded-lg bg-white p-6 shadow-md">
       <h2 className="mb-4 text-2xl font-bold text-gray-800">新增電影</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 gap-4 md:grid-cols-2"
+      >
         <input
           type="text"
           placeholder="電影標題"
@@ -220,7 +215,11 @@ const LoadingSpinner: React.FC = () => (
 
 // Main App Component
 const App = () => {
-  const { movies, loading: iseMoviesLoading, refetch: refetchMovies } = useMovies();
+  const {
+    movies,
+    loading: iseMoviesLoading,
+    refetch: refetchMovies,
+  } = useMovies();
   const { genres, loading: isGenresLoading } = useGenres();
   const [selectedGenre, setSelectedGenre] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
