@@ -16,33 +16,37 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+/** 導演的型別 */
 export type Director = {
   __typename?: 'Director';
-  age?: Maybe<Scalars['Int']['output']>;
-  gender?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  age: Scalars['Int']['output'];
+  gender: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
+/** 電影的型別 */
 export type Movie = {
   __typename?: 'Movie';
-  detail?: Maybe<MovieDetail>;
-  director?: Maybe<Director>;
-  genre?: Maybe<Scalars['String']['output']>;
+  detail: MovieDetail;
+  director: Director;
+  genre: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  img?: Maybe<Scalars['String']['output']>;
-  releaseYear?: Maybe<Scalars['Int']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  img: Scalars['String']['output'];
+  releaseYear: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
 };
 
+/** 電影詳細資訊的型別 */
 export type MovieDetail = {
   __typename?: 'MovieDetail';
-  boxOffice?: Maybe<Scalars['String']['output']>;
-  duration?: Maybe<Scalars['Int']['output']>;
+  boxOffice: Scalars['String']['output'];
+  duration: Scalars['Int']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMovie?: Maybe<Movie>;
+  /** 新增電影 */
+  addMovie: Movie;
 };
 
 
@@ -55,9 +59,12 @@ export type MutationAddMovieArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  allGenres?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  allMovies?: Maybe<Array<Maybe<Movie>>>;
-  movieDetail?: Maybe<MovieDetail>;
+  /** 取得所有電影類型 */
+  allGenres: Array<Maybe<Scalars['String']['output']>>;
+  /** 取得所有電影 */
+  allMovies: Array<Maybe<Movie>>;
+  /** 取得電影細節 */
+  movieDetail: MovieDetail;
 };
 
 
@@ -68,19 +75,19 @@ export type QueryMovieDetailArgs = {
 export type GetMoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMoviesQuery = { __typename?: 'Query', allMovies?: Array<{ __typename?: 'Movie', genre?: string | null, id: string, releaseYear?: number | null, title?: string | null, img?: string | null, director?: { __typename?: 'Director', name?: string | null, age?: number | null, gender?: string | null } | null } | null> | null };
+export type GetMoviesQuery = { __typename?: 'Query', allMovies: Array<{ __typename?: 'Movie', genre: string, id: string, releaseYear: number, title: string, img: string, director: { __typename?: 'Director', name: string, age: number, gender: string } } | null> };
 
 export type GetAllGenresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllGenresQuery = { __typename?: 'Query', allGenres?: Array<string | null> | null };
+export type GetAllGenresQuery = { __typename?: 'Query', allGenres: Array<string | null> };
 
 export type GetMovieDetailQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetMovieDetailQuery = { __typename?: 'Query', movieDetail?: { __typename?: 'MovieDetail', boxOffice?: string | null, duration?: number | null } | null };
+export type GetMovieDetailQuery = { __typename?: 'Query', movieDetail: { __typename?: 'MovieDetail', boxOffice: string, duration: number } };
 
 export type AddMovieMutationVariables = Exact<{
   title: Scalars['String']['input'];
@@ -90,7 +97,7 @@ export type AddMovieMutationVariables = Exact<{
 }>;
 
 
-export type AddMovieMutation = { __typename?: 'Mutation', addMovie?: { __typename?: 'Movie', id: string, title?: string | null, releaseYear?: number | null, genre?: string | null, director?: { __typename?: 'Director', name?: string | null } | null } | null };
+export type AddMovieMutation = { __typename?: 'Mutation', addMovie: { __typename?: 'Movie', id: string, title: string, releaseYear: number, genre: string, director: { __typename?: 'Director', name: string } } };
 
 
 export const GetMoviesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMovies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"allMovies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"director"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"age"}},{"kind":"Field","name":{"kind":"Name","value":"gender"}}]}},{"kind":"Field","name":{"kind":"Name","value":"genre"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"releaseYear"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"img"}}]}}]}}]} as unknown as DocumentNode<GetMoviesQuery, GetMoviesQueryVariables>;

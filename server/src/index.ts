@@ -77,12 +77,13 @@ const movies = [
 ];
 
 const typeDefs = `#graphql
+  """導演的型別"""
   type Director {
     name: String!
     age: Int!
     gender: String!
   }
-
+  """電影的型別"""
   type Movie {
     id: ID!
     title: String!
@@ -92,19 +93,23 @@ const typeDefs = `#graphql
     img: String!
     detail: MovieDetail!
   }
-
+  """電影詳細資訊的型別"""
   type MovieDetail {
     boxOffice: String!
     duration: Int!
   }
 
   type Query {
+    """取得所有電影"""
     allMovies: [Movie]!
+    """取得電影細節"""
     movieDetail(id: ID!): MovieDetail!
+    """取得所有電影類型"""
     allGenres: [String]!
   }
 
   type Mutation {
+    """新增電影"""
     addMovie(title: String!, releaseYear: Int!, genre: String!, directorName: String!): Movie!
   }
 `;
